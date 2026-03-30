@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Studentregistration.Models.StudentRegistration>
+
+@if (TempData["ResultOk"] != null)
+{
+    <h1 class="alert-success">@TempData["ResultOk"]</h1>
+}
+
+<div class="container shadow p-5">
+
+    <h1 class="text-center mb-3">Registration Details</h1>
+
+    <div role="group" class="col mb-3 btn-group">
+        <a asp-controller="Students" asp-action="Create" class="btn btn-sm btn-primary">Register Student</a>
+        <a asp-controller="Students" asp-action="Index" class="btn btn-sm btn-link">Show ALL</a>
+        <a asp-controller="Students" asp-action="OrderByName" class="btn btn-sm btn-link">Order By Name</a>
+        <a asp-controller="Students" asp-action="OrderByCourse" class="btn btn-sm btn-link">Order By Course</a>
+        <a asp-controller="Students" asp-action="OrderByBatch" class="btn btn-sm btn-link">Order By Batch</a>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Course</th>
+                <th scope="col">Batch</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td width="20%">
+                        @item.FirstName
+                    </td>
+                    <td width="20%">
+                        @item.LastName
+                    </td>
+                    <td width="20%">
+                        @item.phone
+                    </td>
+                    <td width="20%">
+                        @item.Courses!.CourseName
+                    </td>
+                    <td width="20%">
+                        @item.Batches!.BatchName
+                    </td>
+                    <td>
+                        <div role="group" class="w-60 btn-group">
+                            <a asp-controller="Students" asp-action="Edit" asp-route-id="@item.Id" class=" btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i>Edit</a>&nbsp; &nbsp;
+                            <a asp-controller="Students" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i>Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
