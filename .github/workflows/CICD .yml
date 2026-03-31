@@ -1,0 +1,37 @@
+name: CI/CD
+
+on:
+  workflow_dispatch:  
+
+jobs:
+
+# ------------------ CI JOB ------------------
+  build:
+    name: Build and Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore packages
+        run: dotnet restore Studentregistration
+
+      - name: Build project
+        run: dotnet build Studentregistration --configuration Release
+
+      - name: Publish project
+        run: dotnet publish Studentregistration -c Release -o publish
+
+      - name: Upload publish folder as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-files
+          path: publish
+
+
