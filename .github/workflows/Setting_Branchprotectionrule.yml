@@ -1,0 +1,14 @@
+ name: Setting_Branchprotectionrule
+
+ on:
+  pull_request:
+    branches:
+      - main
+
+ jobs:
+  check:
+    runs-on: windows-latest
+
+    steps:
+      - name: Print message
+        run: echo Workflow is running for Pull Request
