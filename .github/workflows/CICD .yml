@@ -40,7 +40,12 @@ jobs:
         run: mkdir deployed-folder
 
       - name: Copy Artifact Files to Deployment Folder
-        run: cp -r ./* deployed-folder/ || true
+        run: |
+         for file in *; do
+          if [ "$file" != "deployed-folder" ]; then
+            cp -r "$file" deployed-folder/
+          fi
+         done
 
       - name: Display Deployed Files
         run: ls deployed-folder
