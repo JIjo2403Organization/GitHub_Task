@@ -1,4 +1,4 @@
-name: Task 6 - Artifact to GitHub Packages
+name: CICD
 
 on:
   workflow_dispatch:
