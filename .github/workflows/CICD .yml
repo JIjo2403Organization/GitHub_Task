@@ -1,4 +1,4 @@
-name: CICD
+name: Task 6 - Upload Artifact to GitHub Packages
 
 on:
   workflow_dispatch:
@@ -36,17 +36,17 @@ jobs:
         with:
           name: build-artifact
 
-      # Create ZIP from downloaded artifact
+      # zip everything that was downloaded
       - name: Create ZIP from downloaded files
-        run: zip -r final-build.zip publish
+        run: zip -r final-build.zip .
 
-      # Upload permanently to GitHub Packages
-      - name: Push to GitHub Packages
+      # push the zip file to GitHub Packages
+      - name: Upload to GitHub Packages
         run: |
           dotnet nuget push final-build.zip \
           --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
           --api-key ${{ secrets.GITHUB_TOKEN }}
 
-      # Just to prove it worked
+      # just to verify in logs
       - name: Show files
         run: ls
