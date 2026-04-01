@@ -1,37 +1,52 @@
-name: CI/CD
+name: Task 6 - Artifact to GitHub Packages
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:
 
 jobs:
 
-# ------------------ CI JOB ------------------
+# ---------------- BUILD JOB ----------------
   build:
-    name: Build
+    name: Build Job
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-
-      - name: Restore packages
-        run: dotnet restore Studentregistration
-
-      - name: Build project
-        run: dotnet build Studentregistration --configuration Release
-
-      - name: Publish project
+      - name: Publish Project
         run: dotnet publish Studentregistration -c Release -o publish
 
-      - name: Upload publish folder as artifact
+      - name: Upload Build Output as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: publish-files
+          name: build-artifact
           path: publish
 
 
+# ---------------- DEPLOY JOB ----------------
+  deploy:
+    name: Deploy Job
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Artifact from Build Job
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+
+      # Create ZIP from downloaded artifact
+      - name: Create ZIP from downloaded files
+        run: zip -r final-build.zip publish
+
+      # Upload permanently to GitHub Packages
+      - name: Push to GitHub Packages
+        run: |
+          dotnet nuget push final-build.zip \
+          --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+          --api-key ${{ secrets.GITHUB_TOKEN }}
+
+      # Just to prove it worked
+      - name: Show files
+        run: ls
