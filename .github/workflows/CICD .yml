@@ -1,4 +1,5 @@
 name: CICD
+
 on:
   workflow_dispatch:
 
@@ -13,7 +14,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Build the Project
+      - name: Publish Project
         run: dotnet publish Studentregistration -c Release -o publish
 
       - name: Upload Build Output as Artifact
@@ -39,7 +40,7 @@ jobs:
         run: mkdir deployed-folder
 
       - name: Copy Artifact Files to Deployment Folder
-        run: cp -r publish/* deployed-folder/
+        run: cp -r * deployed-folder/
 
       - name: Display Deployed Files
         run: ls deployed-folder
