@@ -1,5 +1,4 @@
-name: Task 6 - Upload Artifact to GitHub Packages
-
+name: CICD
 on:
   workflow_dispatch:
 
@@ -14,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Publish Project
+      - name: Build the Project
         run: dotnet publish Studentregistration -c Release -o publish
 
       - name: Upload Build Output as Artifact
@@ -36,17 +35,11 @@ jobs:
         with:
           name: build-artifact
 
-      # zip everything that was downloaded
-      - name: Create ZIP from downloaded files
-        run: zip -r final-build.zip .
+      - name: Create Deployment Folder
+        run: mkdir deployed-folder
 
-      # push the zip file to GitHub Packages
-      - name: Upload to GitHub Packages
-        run: |
-          dotnet nuget push final-build.zip \
-          --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
-          --api-key ${{ secrets.GITHUB_TOKEN }}
+      - name: Copy Artifact Files to Deployment Folder
+        run: cp -r publish/* deployed-folder/
 
-      # just to verify in logs
-      - name: Show files
-        run: ls
+      - name: Display Deployed Files
+        run: ls deployed-folder
