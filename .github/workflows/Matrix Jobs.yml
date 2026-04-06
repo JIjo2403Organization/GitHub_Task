@@ -1,4 +1,4 @@
-name: Matrix Jobs
+name: Simple Matrix
 
 on:
   push:
@@ -6,14 +6,11 @@ on:
       - main
 
 jobs:
-  matrix-job:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         environment: [dev, qa, prod]
 
-    steps:
-      - name: Print environment
-     #   run: echo "Running for environment: ${{ matrix.environment }}"
-        
+   
