@@ -1,4 +1,4 @@
-name: Matrix 
+name: Matrix Condition Example
 
 on:
   push:
@@ -11,17 +11,14 @@ jobs:
 
     strategy:
       matrix:
-        environment: [dev, qa, prod]
+        include:
+          - environment: dev
+            message: "Hello"
+          - environment: qa
+            message: "All the next"
+          - environment: prod
+            message: "Bye"
 
     steps:
-      - name: Print Hello  for dev
-        if: matrix.environment == 'dev'
-        run: echo "Hello"
-
-      - name: Print All for qa
-        if: matrix.environment == 'qa'
-        run: echo "All the next"
-
-      - name: Print Bye  prod
-        if: matrix.environment == 'prod'
-        run: echo "Bye"
+      - name: Print message
+        run: echo "${{ matrix.message }}"
