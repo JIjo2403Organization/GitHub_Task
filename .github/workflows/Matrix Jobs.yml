@@ -1,0 +1,19 @@
+name: Task 7 - Matrix Jobs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  matrix-job:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        environment: [dev, qa, prod]
+
+    steps:
+      - name: Print environment
+        run: echo "Running for environment: ${{ matrix.environment }}"
+        
