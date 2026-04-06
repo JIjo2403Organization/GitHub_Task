@@ -1,4 +1,4 @@
-name: Task 7 - Matrix Jobs
+name: Matrix Jobs
 
 on:
   push:
@@ -15,5 +15,5 @@ jobs:
 
     steps:
       - name: Print environment
-        run: echo "Running for environment: ${{ matrix.environment }}"
+     #   run: echo "Running for environment: ${{ matrix.environment }}"
         
