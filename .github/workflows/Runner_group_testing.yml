@@ -1,4 +1,4 @@
-name: CICD
+name: Runner_group_testing
 
 on:
   workflow_dispatch:
