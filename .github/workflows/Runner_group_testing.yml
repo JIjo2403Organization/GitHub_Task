@@ -10,7 +10,7 @@ jobs:
  
     runs-on:
       group: Demo
-      labels: [self-hosted, Windows, X64, github]
+      labels: [self-hosted, Windows, X64, Task6]
 
 
     steps:
