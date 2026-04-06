@@ -1,0 +1,27 @@
+name: CICD
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+# ---------------- BUILD JOB ----------------
+  build:
+ 
+    runs-on:
+      group: Demo runner group
+      labels: [self-hosted, Windows, X64, github]
+
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Publish Project
+        run: dotnet publish Studentregistration -c Release -o publish
+
+      - name: Upload Build Output as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: publish
