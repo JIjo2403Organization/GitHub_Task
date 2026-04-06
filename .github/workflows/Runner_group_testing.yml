@@ -10,7 +10,7 @@ jobs:
  
     runs-on:
       group: Default
-      labels: [self-hosted, Windows, X64, Task6]
+     # labels: [self-hosted, Windows, X64, Task6]
 
 
     steps:
