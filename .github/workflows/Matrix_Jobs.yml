@@ -1,4 +1,4 @@
-name: Simple Matrix
+name: Matrix Condition Example
 
 on:
   push:
@@ -13,4 +13,15 @@ jobs:
       matrix:
         environment: [dev, qa, prod]
 
-   
+    steps:
+      - name: Print Hello (only for dev)
+        if: matrix.environment == 'dev'
+        run: echo "Hello"
+
+      - name: Print All the Next (for qa)
+        if: matrix.environment == 'qa'
+        run: echo "All the next"
+
+      - name: Print Bye (for prod)
+        if: matrix.environment == 'prod'
+        run: echo "Bye"
