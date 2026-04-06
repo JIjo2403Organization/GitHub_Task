@@ -14,14 +14,14 @@ jobs:
         environment: [dev, qa, prod]
 
     steps:
-      - name: Print Hello (only for dev)
+      - name: Print Hello  for dev
         if: matrix.environment == 'dev'
         run: echo "Hello"
 
-      - name: Print All the Next (for qa)
+      - name: Print All for qa
         if: matrix.environment == 'qa'
         run: echo "All the next"
 
-      - name: Print Bye (for prod)
+      - name: Print Bye  prod
         if: matrix.environment == 'prod'
         run: echo "Bye"
