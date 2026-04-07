@@ -19,5 +19,5 @@ jobs:
     steps:
       - name: "Deploy ${{ matrix.environment }}"
         run: echo "Deploying $ENVIRONMENT"
-        env:
-          ENVIRONMENT: ${{ matrix.environment }}
+        #env:
+          #ENVIRONMENT: ${{ matrix.environment }}
