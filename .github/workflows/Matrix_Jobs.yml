@@ -1,4 +1,4 @@
-name: Matrix Condition Example
+name: Matrix
 
 on:
   push:
