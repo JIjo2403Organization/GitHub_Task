@@ -14,10 +14,11 @@ jobs:
       max-parallel: 1
       fail-fast: true
       matrix:
-        environment: ["dev", "qa", "prod"]
+        environment: ["dev", "qa"]
+        #, "prod"]
 
     steps:
       - name: "Deploy ${{ matrix.environment }}"
         run: echo "Deploying $ENVIRONMENT"
-        #env:
-          #ENVIRONMENT: ${{ matrix.environment }}
+        env:
+          ENVIRONMENT: ${{ matrix.environment }}
