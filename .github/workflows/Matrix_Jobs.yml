@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  deploy-matrix:
     name: "Deploy ${{ matrix.environment }}"
     runs-on: ubuntu-latest
 
