@@ -1,8 +1,2 @@
-<<<<<<< Branch-1
-hello
-I am Batman
-=======
-I am Batman
+I am Batmannn
 
-
->>>>>>> main
