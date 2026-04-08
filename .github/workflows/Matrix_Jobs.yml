@@ -1,4 +1,4 @@
-name: "Example Workflow 1.2"
+name:  Matrix
 
 on:
   push:
@@ -6,19 +6,13 @@ on:
       - main
 
 jobs:
-  deploy-matrix:
-    name: "Deploy ${{ matrix.environment }}"
+  test:
     runs-on: ubuntu-latest
 
     strategy:
-      max-parallel: 1
-      fail-fast: true
       matrix:
-        environment: ["dev", "qa"]
-        #, "prod"]
+        environment: [dev, qa, prod]
 
     steps:
-      - name: "Deploy ${{ matrix.environment }}"
-        run: echo "Deploying $ENVIRONMENT"
-        env:
-          ENVIRONMENT: ${{ matrix.environment }}
+      - name: Print environment
+        run: echo "Running for ${{ matrix.environment }}"
