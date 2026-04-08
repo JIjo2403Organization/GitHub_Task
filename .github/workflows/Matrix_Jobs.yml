@@ -1,4 +1,4 @@
-name: Simple Matrix Example
+name:  Matrix
 
 on:
   push:
