@@ -21,6 +21,6 @@ jobs:
 
   deploy:
     needs: build
-    uses: ./.github/workflows/Deploy.yml
+    uses: JIjo2403Organization/Workflow_call_deploy/.github/workflows/Deploy.yml@main
     with:
       name: artifact files
