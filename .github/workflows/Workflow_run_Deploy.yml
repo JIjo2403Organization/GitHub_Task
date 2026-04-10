@@ -1,0 +1,25 @@
+name: Workflow_run_Deploy
+
+on:
+  workflow_run:
+    workflows: ["Workflow_run_Build"]  
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on:
+      group: Demo runner group
+      labels: [self-hosted, Windows, X64, github]
+
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+          path: publish
+
+      - name: Deploy
+        run: |
+          powershell -Command "Remove-Item 'D:\github artifact repo\*' -Recurse -Force -ErrorAction SilentlyContinue"
+          powershell -Command "Copy-Item 'publish\*' 'D:\github artifact repo\' -Recurse -Force"
