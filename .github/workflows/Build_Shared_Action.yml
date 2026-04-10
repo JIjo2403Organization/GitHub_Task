@@ -9,4 +9,4 @@ jobs:
 
     steps:
       - name: Run Build Action
-        uses: Jijo2403Organization/GitHub_Task2/.github/actions/matrix-job/action.yml@main
+        uses: Jijo2403Organization/GitHub_Task2/.github/actions/matrix-job@main
