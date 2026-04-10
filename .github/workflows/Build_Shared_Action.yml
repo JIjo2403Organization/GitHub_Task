@@ -1,0 +1,12 @@
+name: Build_Shared_Action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Build Action
+        uses: Jijo2403Organization/GitHub_Task2/.github/actions/matrix-job/action.yml@main
