@@ -1,0 +1,29 @@
+name: CI 
+
+on:
+   pull_request: 
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        environment: [dev, qa, prod]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: dotnet publish Studentregistration -c Release -o publish
+
+      - name: Upload Artifact
+        uses: JIjo2403Organization/GitHub_Task2/.github/actions/Upload_Artifact@main
+        with:
+          name: build-${{ matrix.environment }}
+          path: publish
+  deploy:
+   name: Call CD Workflow
+   needs: build
+   uses: Jijo2403Organization/GitHub_Task2/.github/workflows/CD.yml@main
+
