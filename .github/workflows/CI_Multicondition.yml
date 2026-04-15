@@ -26,5 +26,5 @@ jobs:
   deploy:
    name: Call CD Workflow
    needs: build
-   uses: Jijo2403Organization/GitHub_Task2/.github/workflows/CD.yml@main
+   uses: Jijo2403Organization/GitHub_Task2/.github/workflows/CD_multitask.yml@main
 
