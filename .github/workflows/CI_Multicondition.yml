@@ -12,11 +12,19 @@ jobs:
     strategy:
       matrix:
         environment: [dev, qa, prod]
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
 
     steps:
       - uses: actions/checkout@v4
 
       - run: dotnet publish Studentregistration -c Release -o publish
+
+      - name: Build Version
+        id: version
+        run: echo "version=1.0.${{ github.run_number }}" >> $GITHUB_OUTPUT
+
 
       - name: Upload Artifact
         uses: JIjo2403Organization/GitHub_Task2/.github/actions/Upload_Artifact@main
