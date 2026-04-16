@@ -5,6 +5,7 @@ on:
   # pull_request: 
   #  branches:
      # - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,9 +13,9 @@ jobs:
     strategy:
       matrix:
         environment: [dev, qa, prod]
+
     outputs:
       version: ${{ steps.version.outputs.version }}
-
 
     steps:
       - uses: actions/checkout@v4
@@ -25,14 +26,16 @@ jobs:
         id: version
         run: echo "version=1.0.${{ github.run_number }}" >> $GITHUB_OUTPUT
 
-
       - name: Upload Artifact
         uses: JIjo2403Organization/GitHub_Task2/.github/actions/Upload_Artifact@main
         with:
           name: build-${{ matrix.environment }}
           path: publish
+
   deploy:
-   name: Call CD Workflow
-   needs: build
-   uses: Jijo2403Organization/GitHub_Task2/.github/workflows/CD_multitask.yml@main
+    name: Call CD Workflow
+    needs: build
+    uses: Jijo2403Organization/GitHub_Task2/.github/workflows/CD_multitask.yml@main
+    with:
+      version: ${{ needs.build.outputs.version }}
 
