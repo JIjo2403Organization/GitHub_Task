@@ -6,8 +6,8 @@ on:
 jobs:
   set-version:
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.set-value.outputs.version }}
+  #  outputs:
+   #   version: ${{ steps.set-value.outputs.version }}
 
     steps:
       - name: Set value
