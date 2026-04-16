@@ -5,20 +5,10 @@ on:
   # pull_request: 
   #  branches:
      # - main
+
 jobs:
-  version:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.set-version.outputs.version }}
-
-    steps:
-      - name: Set Version
-        id: set-version
-        run: echo "version=1.0.${{ github.run_number }}" >> $GITHUB_OUTPUT
-
   build:
     runs-on: ubuntu-latest
-    needs: version
 
     strategy:
       matrix:
@@ -36,9 +26,6 @@ jobs:
           path: publish
 
   deploy:
-    name: Call CD Workflow
-    needs: [version, build]
-    uses: Jijo2403Organization/GitHub_Task2/.github/workflows/CD_multitask.yml@main
-    with:
-      version: ${{ needs.version.outputs.version }}
-
+   name: Call CD Workflow
+   needs: build
+   uses: Jijo2403Organization/GitHub_Task2/.github/workflows/CD_multitask.yml@main
