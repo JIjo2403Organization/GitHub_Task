@@ -5,26 +5,29 @@ on:
   # pull_request: 
   #  branches:
      # - main
-
 jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set-version.outputs.version }}
+
+    steps:
+      - name: Set Version
+        id: set-version
+        run: echo "version=1.0.${{ github.run_number }}" >> $GITHUB_OUTPUT
+
   build:
     runs-on: ubuntu-latest
+    needs: version
 
     strategy:
       matrix:
         environment: [dev, qa, prod]
 
-    outputs:
-      version: ${{ steps.version.outputs.version }}
-
     steps:
       - uses: actions/checkout@v4
 
       - run: dotnet publish Studentregistration -c Release -o publish
-
-      - name: Build Version
-        id: version
-        run: echo "version=1.0.${{ github.run_number }}" >> $GITHUB_OUTPUT
 
       - name: Upload Artifact
         uses: JIjo2403Organization/GitHub_Task2/.github/actions/Upload_Artifact@main
@@ -34,8 +37,8 @@ jobs:
 
   deploy:
     name: Call CD Workflow
-    needs: build
+    needs: [version, build]
     uses: Jijo2403Organization/GitHub_Task2/.github/workflows/CD_multitask.yml@main
     with:
-      version: ${{ needs.build.outputs.version }}
+      version: ${{ needs.version.outputs.version }}
 
